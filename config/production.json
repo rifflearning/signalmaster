@@ -12,5 +12,8 @@
       "urls": "$STUNSERVER_URL"
     }
   ],
-  "turnservers": []
+  "turn": {
+    "twilioId": "$TWILIO_ID",
+    "twilioToken": "$TWILIO_TOKEN"
+  }
 }

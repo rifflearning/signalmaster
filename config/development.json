@@ -14,14 +14,11 @@
   },
   "stunservers": [
     {
-      "urls": "stun:stun.l.google.com:19302"
+      "urls": "$STUNSERVER_URL"
     }
   ],
-  "turnservers": [
-    {
-      "urls": ["turn:your.turn.servers.here"],
-      "secret": "turnserversharedsecret",
-      "expiry": 86400
-    }
-  ]
+  "turn": {
+    "twilioId": "$TWILIO_ID",
+    "twilioToken": "$TWILIO_TOKEN"
+  }
 }

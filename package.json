@@ -14,6 +14,7 @@
   "dependencies": {
     "getconfig": "^4.5.0",
     "socket.io": "^2.1.1",
+    "twilio": "^3.19.2",
     "uuid": "^3.3.2",
     "yetify": "^0.1.0"
   },
