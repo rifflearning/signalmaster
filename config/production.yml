@@ -1,0 +1,11 @@
+# This file should only contain configuration settings which override the values
+# in default.yml and are values needed for the production deployment.
+#
+# However DON'T ADD *Confidential* IDs and keys to this file.
+#
+# Confidential values will be injected at production deployment time,
+# either via environment variables referenced by custom-environment-variables.yml
+# or by adding a local-production.yml file (which should NOT be committed)
+# with those confidential settings.
+#
+isDev: false

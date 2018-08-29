@@ -1,5 +1,5 @@
 var tape = require('tape');
-var config = require('getconfig');
+var config = require('config');
 var server = require('./server');
 
 var test = tape.createHarness();
@@ -14,16 +14,16 @@ output.on('end', function () {
 var io = require('socket.io-client');
 
 var socketURL;
-if (config.server.secure) {
-    socketURL = "https://localhost:" + config.server.port;
+if (config.get('server.secure')) {
+    socketURL = "https://localhost:" + config.get('server.port');
 } else {
-    socketURL = "http://localhost:" + config.server.port;
+    socketURL = "http://localhost:" + config.get('server.port');
 }
 
 var socketOptions = {
     transports: ['websocket'],
     'force new connection': true,
-    "secure": config.server.secure
+    "secure": config.get('server.secure')
 };
 
 test('it should not crash when sent an empty message', function (t) {

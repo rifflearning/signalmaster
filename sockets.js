@@ -7,7 +7,11 @@ var socketIO = require('socket.io'),
 module.exports = function (server, config) {
     var io = socketIO.listen(server);
 
+    let connectionsMade = 0;
+
     io.sockets.on('connection', function (client) {
+        connectionsMade++;
+
         client.resources = {
             screen: false,
             video: true,
@@ -53,8 +57,8 @@ module.exports = function (server, config) {
             // sanity check
             if (typeof name !== 'string') return;
             // check if maximum number of clients reached
-            if (config.rooms && config.rooms.maxClients > 0 &&
-                clientsInRoom(name) >= config.rooms.maxClients) {
+            maxClients = config.has('rooms.maxClients') ? config.get('rooms.maxClients') : 0;
+            if (maxClients > 0 && clientsInRoom(name) >= maxClients) {
                 safeCb(cb)('full');
                 return;
             }
@@ -102,15 +106,55 @@ module.exports = function (server, config) {
 
 
         // tell client about stun and turn servers and generate nonces
-//        client.emit('stunservers', config.stunservers || []);
+        if (config.get('server.stunTurnServers') === 'twilio') {
+            setupTwilioStunTurnServers();
+        } else {
+            setupBasicStunTurnServers();
+        }
 
-        // emit ICE config using twilio API keys
-        var twilioClient = twilio(config.turn.twilioId, config.turn.twilioToken);
-        twilioClient.tokens.create({}, (err, res) => {
-            //console.log('emitting stun & turn:', res);
-            client.emit('stunservers', res.iceServers);
-            client.emit('turnservers', res.iceServers);
-        });
+        function setupTwilioStunTurnServers() {
+            if (connectionsMade % 10 === 1) {
+                console.log(`Using twilio stun/turn server config values (connection: ${connectionsMade})`);
+            }
+
+            // emit ICE config using twilio API keys
+            let twilioClient = twilio(config.get('twilio.id'), config.get('twilio.token'));
+            twilioClient.tokens.create({}, (err, res) => {
+                //console.log('emitting stun & turn:', res);
+                client.emit('stunservers', res.iceServers);
+                client.emit('turnservers', res.iceServers);
+            });
+        }
+
+        function setupBasicStunTurnServers() {
+            if (connectionsMade % 10 === 1) {
+                console.log(`Using basic stun/turn server config values (connection: ${connectionsMade})`);
+            }
+
+            // tell client about stun and turn servers and generate nonces
+            client.emit('stunservers', config.get('stunservers') || []);
+
+            // create shared secret nonces for TURN authentication
+            // the process is described in draft-uberti-behave-turn-rest
+            let credentials = [];
+            // allow selectively vending turn credentials based on origin.
+            let origin = client.handshake.headers.origin;
+            let turnorigins = config.has('turnorigins') ? config.get('turnorigins') : null;
+            if (!turnorigins || turnorigins.indexOf(origin) !== -1) {
+                config.get('turnservers').forEach(function (server) {
+                    let hmac = crypto.createHmac('sha1', server.secret);
+                    // default to 86400 seconds timeout unless specified
+                    let username = Math.floor(new Date().getTime() / 1000) + (parseInt(server.expiry || 86400, 10)) + "";
+                    hmac.update(username);
+                    credentials.push({
+                        username: username,
+                        credential: hmac.digest('base64'),
+                        urls: server.urls || server.url
+                    });
+                });
+            }
+            client.emit('turnservers', credentials);
+        }
     });
 
 

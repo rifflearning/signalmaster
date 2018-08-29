@@ -1,0 +1,9 @@
+server:
+  stunTurnServers: STUNTURNSERVERS
+# export STUNSERVERS='[{"urls": "stun:stun.services.mozilla.com"}]'
+stunservers:
+    __name: STUNSERVERS
+    __format: json
+twilio:
+  id: TWILIO_ID
+  token: TWILIO_TOKEN

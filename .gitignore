@@ -1,3 +1,32 @@
-.DS_Store
-node_modules
+# Local configuration files
+config/local*
+
+# Private keys
 *.pem
+
+# Logs
+*.log
+
+# Dependency directories
+node_modules/
+
+# Optional npm cache directory
+.npm/
+
+# Optional REPL history
+.node_repl_history
+
+# OS generated files
+.DS_Store
+.DS_Store?
+.directory
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db
+
+# Windows shortcut files
+*.lnk
+
