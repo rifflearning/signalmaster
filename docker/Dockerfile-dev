@@ -1,0 +1,11 @@
+FROM mhart/alpine-node:10
+
+RUN npm install -g npm
+WORKDIR /app
+# when a container is started w/ this image the signalmaster repository working
+# directory must be bound at /app and all dependent packages installed for this
+# command to correctly start the riff-server
+VOLUME ["/app"]
+# This is the development image, set NODE_ENV to reflect that
+ENV NODE_ENV=development
+CMD ["node", "server.js"]
