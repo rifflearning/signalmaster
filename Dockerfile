@@ -1,9 +1,9 @@
 # Args for FROM directives
-ARG NODE_VER=10
+ARG NODE_VER=12-alpine
 
 #
 # ---- Base Node image ----
-FROM mhart/alpine-node:${NODE_VER} AS base
+FROM node:${NODE_VER} AS base
 # The node:8 npm (v 5.6) has some issues, update it to latest
 RUN npm install -g npm
 WORKDIR /app

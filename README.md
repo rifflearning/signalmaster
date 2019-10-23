@@ -1,8 +1,21 @@
-# Deprecated
+# Riff Learning signalmaster
+
+
+This Riff Learning version of signalmaster was forked from the [Deprecated SimpleWebRTC signalmaster](https://github.com/simplewebrtc/signalmaster).
+
+## Enhancements
+
+- The configuration is now specified in Yaml config files found in the config directory
+  using the [config package](https://github.com/lorenwest/node-config#readme).
+- Support for stun/turn servers from [Twilio](https://www.twilio.com/stun-turn) has been added by
+  adding account information to the config.
+- packages have been updated
+
+# The ReadMe from the original codebase
 
 The open-source version of SimpleWebRTC has been deprecated. This repository will remain as-is but is no longer actively maintained.
 Read more about the "new" SimpleWebRTC (which is an entirely different thing) on https://simplewebrtc.com
-# signalmaster
+## signalmaster
 
 A simple signaling server for clients to connect and do signaling for WebRTC.
 
@@ -15,7 +28,7 @@ Read more:
  - [SimpleWebRTC.com](http://simplewebrtc.com)
  - [talky.io](https://talky.io)
 
-## Running
+### Running
 
 Running the server requires a valid installation of node.js which can be installed from the nodejs.org website. After installing the package you will need to install the node dependencies.
 
@@ -31,7 +44,7 @@ Running the server requires a valid installation of node.js which can be install
 
 						{"code":0,"message":"Transport unknown"}
 
-### Production Environment
+#### Production Environment
 * generate your ssl certs
 
 ```shell
@@ -43,7 +56,7 @@ $ ./scripts/generate-ssl-certs.sh
 $ NODE_ENV=production node server.js
 ```
 
-## Use with Express
+### Use with Express
     var express = require('express')
     var sockets = require('signalmaster/sockets')
 
@@ -51,7 +64,7 @@ $ NODE_ENV=production node server.js
     var server = app.listen(port)
     sockets(server, config) // config is the same that server.js uses
 
-## Docker
+### Docker
 
 You can build this image by calling:  
 

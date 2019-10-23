@@ -39,4 +39,36 @@ if (config.get('server.secure')) {
 } else {
     httpUrl = "http://localhost:" + port;
 }
-console.log(yetify.logo() + ' -- signal master is running at: ' + httpUrl);
+
+/*
+ * The following code for handling shutdown signals in a node app was modeled after code found on
+ * https://medium.com/@becintec/building-graceful-node-applications-in-docker-4d2cd4d5d392
+ * which it says came from https://medium.com/@gchudnov/trapping-signals-in-docker-containers-7a57fdda7d86
+ */
+
+// The signals we want to handle
+// NOTE: although it is tempting, the SIGKILL signal (9) cannot be intercepted and handled
+let signals = {
+    'SIGHUP': 1,
+    'SIGINT': 2,
+    'SIGTERM': 15
+};
+
+// Do any necessary shutdown logic for our application here
+function shutdown(signal, value) {
+    console.log("shutdown!");
+    server.close(() => {
+        console.log(`${new Date().toUTCString()}: server stopped by ${signal} with value ${value}`);
+        process.exit(128 + value);
+    });
+};
+
+// Create a listener for each of the signals that we want to handle
+Object.keys(signals).forEach((signal) => {
+    process.on(signal, () => {
+        console.log(`process received a ${signal} signal`);
+        shutdown(signal, signals[signal]);
+    });
+});
+
+console.log(`${new Date().toUTCString()}: ${yetify.logo()} -- signal master is running at: ${httpUrl}`);
