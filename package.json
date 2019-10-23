@@ -1,5 +1,5 @@
 {
-  "name": "signal-master",
+  "name": "@rifflearning/signalmaster",
   "description": "Simple signaling server for SimpleWebRTC",
   "version": "2.0.0",
   "license": "MIT",
