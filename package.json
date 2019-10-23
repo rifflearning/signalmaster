@@ -12,7 +12,7 @@
     "test": "node test.js"
   },
   "dependencies": {
-    "config": "^2.0.1",
+    "config": "^3.2.3",
     "js-yaml": "^3.13.1",
     "socket.io": "^2.3.0",
     "twilio": "^3.36.0",
