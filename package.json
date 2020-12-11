@@ -16,7 +16,7 @@
     "js-yaml": "^3.14.1",
     "socket.io": "^2.3.0",
     "twilio": "^3.54.0",
-    "uuid": "^3.4.0",
+    "uuid": "^8.3.2",
     "yetify": "^0.1.0"
   },
   "devDependencies": {

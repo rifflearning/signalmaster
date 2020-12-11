@@ -1,7 +1,7 @@
-var socketIO = require('socket.io'),
-    uuid = require('uuid/v4'),
-    crypto = require('crypto'),
-    twilio = require('twilio');
+const socketIO = require('socket.io');
+const { v4: uuidv4 } = require('uuid');
+const crypto = require('crypto');
+const twilio = require('twilio');
 
 
 module.exports = function (server, config) {
@@ -81,10 +81,10 @@ module.exports = function (server, config) {
         client.on('create', function (name, cb) {
             if (arguments.length == 2) {
                 cb = (typeof cb == 'function') ? cb : function () {};
-                name = name || uuid();
+                name = name || uuidv4();
             } else {
                 cb = name;
-                name = uuid();
+                name = uuidv4();
             }
             // check if exists
             var room = io.nsps['/'].adapter.rooms[name];
