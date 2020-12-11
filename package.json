@@ -12,15 +12,15 @@
     "test": "node test.js"
   },
   "dependencies": {
-    "config": "^3.2.3",
-    "js-yaml": "^3.13.1",
+    "config": "^3.3.3",
+    "js-yaml": "^3.14.1",
     "socket.io": "^2.3.0",
-    "twilio": "^3.36.0",
-    "uuid": "^3.3.3",
+    "twilio": "^3.54.0",
+    "uuid": "^3.4.0",
     "yetify": "^0.1.0"
   },
   "devDependencies": {
-    "socket.io-client": "^2.3.0",
-    "tape": "^4.11.0"
+    "socket.io-client": "^2.3.1",
+    "tape": "^4.13.3"
   }
 }
