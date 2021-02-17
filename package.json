@@ -13,14 +13,14 @@
   },
   "dependencies": {
     "config": "^3.3.3",
-    "js-yaml": "^3.14.1",
-    "socket.io": "^2.3.0",
-    "twilio": "^3.54.0",
+    "js-yaml": "^4.0.0",
+    "socket.io": "^2.4.1",
+    "twilio": "^3.56.0",
     "uuid": "^8.3.2",
     "yetify": "^0.1.0"
   },
   "devDependencies": {
-    "socket.io-client": "^2.3.1",
-    "tape": "^5.0.1"
+    "socket.io-client": "^2.4.0",
+    "tape": "^5.1.1"
   }
 }
