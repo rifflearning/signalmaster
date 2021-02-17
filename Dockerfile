@@ -1,5 +1,5 @@
 # Args for FROM directives
-ARG NODE_VER=12-alpine
+ARG NODE_VER=14-alpine
 
 #
 # ---- Base Node image ----
